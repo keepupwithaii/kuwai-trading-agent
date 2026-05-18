@@ -32,3 +32,15 @@ agent saw.
 
 A sceptic re-runs R1/R2/R3 deterministically; R4 is honestly named at its tier.
 The Tier-1 list-is-sealed SHA-256/OTS check covers SCRAPE_CHANNELS.txt.
+
+## Reproducible build (S-SUPPLY-CHAIN / C-LOCKFILE)
+
+The runtime is Python 3 standard library only; LOCKFILE.txt declares zero
+third-party dependencies and an empty transitive closure. To reproduce: take
+this sealed `commitment-v2/` tree at the published tag and a pinned CPython 3
+(Ubuntu 24.04 LTS system python3, recorded in the deploy runbook). No package
+installation step exists, so there is no dependency resolution to diverge. The
+canonical sealed-tree SHA-256 (the algorithm in
+`code/amendment_loader.py:canonical_tree_hash`) plus the OpenTimestamps Bitcoin
+anchor fix the bytes; a sceptic recomputes both with no trust in the operator.
+

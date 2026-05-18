@@ -30,7 +30,12 @@ real model on the PAPER key):
 from __future__ import annotations
 
 import hashlib
+import sys
 from pathlib import Path
+
+# The runtime must not write __pycache__ into the sealed tree (keeps the
+# canonical-tree hash stable; C-MANIFEST demands an exact member set).
+sys.dont_write_bytecode = True
 
 import council as council_mod
 import feasibility_gate as fg
