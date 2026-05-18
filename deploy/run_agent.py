@@ -38,10 +38,13 @@ def main() -> int:
     # set, never in the sealed tree. --check-auth / --check-clock do the
     # account/clock preflight and exit non-zero on failure (fail loud).
     if "--check-auth" in flags or "--check-clock" in flags:
-        # preflight only; real client construction + GET /v2/account + clock
-        _require("APCA_API_KEY_ID")
-        _require("APCA_API_SECRET_KEY")
-        # (the real preflight call is performed by the deployed broker client)
+        # preflight only; env vars depend on KUWAI_MODE (paper vs live).
+        # In paper mode the keys are APCA_PAPER_*; in live mode APCA_LIVE_*.
+        if mode == "live":
+            _require("APCA_LIVE_KEY_ID"); _require("APCA_LIVE_SECRET")
+        else:
+            _require("APCA_PAPER_KEY_ID"); _require("APCA_PAPER_SECRET")
+        _require("ANTHROPIC_API_KEY")
         return 0
 
     import agent_loop  # sealed module

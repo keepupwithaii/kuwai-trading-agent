@@ -84,6 +84,17 @@ def main() -> int:
         if e.get("kind") == "HEARTBEAT":
             equity = float((e.get("body") or {}).get("equity", 0.0))
             break
+    # today_open_equity: the FIRST HEARTBEAT after midnight UTC; the "Today"
+    # delta on the dashboard anchors here (00h pressure-test deferred item:
+    # real feed defines the session open). Falls back to the seed if no
+    # heartbeat today.
+    today_open = None
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    for e in entries:
+        ts = e.get("ts_utc", "")
+        if ts.startswith(today_str) and e.get("kind") == "HEARTBEAT":
+            today_open = float((e.get("body") or {}).get("equity", 0.0))
+            break
     # since_trade_s: from the most recent ORDER_SUBMIT
     since = 0
     last_fill_ts = None
@@ -119,6 +130,8 @@ def main() -> int:
         "as_of": datetime.now(timezone.utc).isoformat(),
         "seed": seed,
         "equity": equity if equity is not None else seed,
+        "today_open_equity": today_open if today_open is not None else (
+            equity if equity is not None else seed),
         "since_trade_s": since,
         "agents": None,  # the local bridge fills this from agent-ledger.md
         "hash": None,    # filled by the seal step; never a placeholder
