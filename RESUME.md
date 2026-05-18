@@ -50,9 +50,10 @@ in order. A general "go" is not a seal trigger.
       10 closed BUG-CLASSES)
 - [x] `commitment-v2/corpus/` (94 C2.2 closed exclusion set; view-free;
       README + neutral NO-EDGE)
-- [ ] `commitment-v2/COUNCIL/` (PRO_PROMPT, CON_PROMPT, SYNTHESISER_PROMPT,
-      FAULT_LIST.txt, SCHEMA.md; bound-(g) cited-item-to-step shape; MF-2
-      symmetric counterweight is in the SYSTEM_PROMPT council clause already)
+- [x] `commitment-v2/COUNCIL/` (PRO/CON/SYNTHESISER prompts, FAULT_LIST.txt
+      closed no-boldness, SCHEMA.md closed council-v1 with bound-(g)
+      cited-item-to-step shape + deterministic disposition; MF-2 counterweight
+      stays in the SYSTEM_PROMPT clause, not duplicated)
 - [ ] `commitment-v2/RESEARCH/` (PLAN, SOURCES, QUERY_TEMPLATE, RECENCY,
       MISSING_POLICY, FUNDING, RECONSTRUCTION, SCRAPE_CHANNELS, REGIME_RULE +
       sealed transform defs; trust-root + post-caused-price + social_cross_pump)
@@ -78,11 +79,13 @@ in order. A general "go" is not a seal trigger.
 
 ## NEXT ACTION
 
-Build `commitment-v2/COUNCIL/`: PRO_PROMPT.md, CON_PROMPT.md,
-SYNTHESISER_PROMPT.md, FAULT_LIST.txt (closed, excludes boldness),
-SCHEMA.md (closed council-v1: 7 dimension verdicts a-g + one-line whys +
-derived overall + derived disposition, NO caution field, NO debate_contested).
-Dimension (g) reason bound to the closed cited-item-to-step incoherence shape
-(MF-1 Option A, 146 §1). The MF-2 symmetric counterweight already lives in the
-SYSTEM_PROMPT council clause (do not duplicate into prompts here). Per 145 §1.1,
-141, 146, 151 §1 (R-1 bind is enforced in code/, not in these prompts).
+Build `commitment-v2/RESEARCH/`: PLAN.txt (static finite acyclic
+deterministic fetch+derive graph with sealed node bound + wall-clock budget;
+the corroboration node carrying the §1.1 trust-root + post-caused-price rule +
+social_cross_pump_pattern; the read-only cross-wake own-history node),
+SOURCES.txt, QUERY_TEMPLATE.txt (parameter-free, NO searchTerms/query),
+RECENCY.txt, MISSING_POLICY.txt, FUNDING.txt, RECONSTRUCTION.md (four-class
+sort R1-R4 + R4 three-tier standard), SCRAPE_CHANNELS.txt (pinned Actor IDs +
+pinned builds, closed literal named list, sealed cadence/recency/per-entity
+N_max/token ceiling), REGIME_RULE.txt + the sealed sector/vol/liquidity/
+calendar transform defs. Per 131 §2.6, 102 R2.6, 128, 94.
