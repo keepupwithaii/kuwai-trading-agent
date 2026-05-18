@@ -33,9 +33,10 @@ in order. A general "go" is not a seal trigger.
 - [x] `commitment-v2/SYSTEM_PROMPT.md` (byte-verbatim from 151 §4, fill
       {MODEL_CUTOFF_DATE} -> January 2026; built via build_tools extraction;
       C-COUNCIL-PROMPT is the byte-identity backstop)
-- [ ] `commitment-v2/MODEL.txt` (pinned claude-opus-4-7 id + temperature 0.7)
-- [ ] `commitment-v2/TOOLS.md` (3-tool contract: perceive / propose_orders /
-      record_reasoning, with bounds, 102 R2.2)
+- [x] `commitment-v2/MODEL.txt` (bare: `claude-opus-4-7` then `0.7`, nothing
+      else; C-MODEL backstop)
+- [x] `commitment-v2/TOOLS.md` (3-tool contract: perceive / propose_orders /
+      record_reasoning, with bounds, 102 R2.2, transcribed)
 - [ ] `commitment-v2/PERCEPTION_SCHEMA.md` (~13 blocks A-M + Block N + N-CONTEXT
       fields + untrusted_text/embedded_untrusted fencing + source enum)
 - [ ] `commitment-v2/UNIVERSE.txt` (broad fractional-eligible US equities/ETFs;
@@ -74,6 +75,10 @@ in order. A general "go" is not a seal trigger.
 
 ## NEXT ACTION
 
-Build `commitment-v2/MODEL.txt`: exactly the pinned `claude-opus-4-7` snapshot
-id line and the temperature `0.7` line, nothing else (102 R2.6 / 94 C2.1 /
-139 §1.1; the prompt body carries no temperature string).
+Build `commitment-v2/PERCEPTION_SCHEMA.md`: the perception-bundle schema for
+own-account state + market data + the ~13 blocks A-M + Block N, with the
+N-CONTEXT fields (author_id, post_id, captured_at, edit_state enum), the
+untrusted_text / embedded_untrusted fencing, the extended source enum, the
+audit fields (corroboration, single_source_social, social_cross_pump_pattern,
+truncated, edit_state) marked input-side-sealed-log-only and NEVER broadcast
+(A5). Per 102 R2.2, 131 §1.2/§2.2, 94 C2.1.
