@@ -1,0 +1,52 @@
+# RESEARCH/SCRAPE_CHANNELS.txt — the sealed Block-N channel object (sealed)
+#
+# Closed, parameter-free, pinned. NO searchTerms / query / keyword field, ever.
+# Live scrape runs ONLY at real runtime; it NEVER runs in the conformance gate
+# or the compressed paper cycle (Block N is sealed-config + schema only there).
+#
+# The Tier-1 reconstruction gate: this whole file is SHA-256/OTS sealed; a
+# sceptic checks the curation surface against it forever (RECONSTRUCTION.md).
+
+## Sealed cadence / caps (sealed signed scalars, closed-weekly-only changeable)
+
+block_n_enabled        = present_and_sealed
+recency_window         = 24h            # mirrors RECENCY.txt
+per_entity_N_max       = 50             # per sealed entity, NOT global
+per_wake_token_ceiling = sealed_budget  # bounds Block N as a whole per wake
+truncation             = recency_only_visible (truncated + dropped_count in schema)
+topic_aware            = forbidden
+scrape_in_paper_cycle  = never
+scrape_in_conformance  = never
+
+## Pinned Apify Actors (Actor id + pinned build hash)
+
+# REQUIRED PRE-SEAL BUILD-CONFIRM (67: "the two Apify build-confirms",
+# execution-terminal-owned, mechanical). The exact Actor ids and the exact
+# pinned build hashes are filled at the build-confirm step before seal and
+# verified by C-* / RECONSTRUCTION Tier-1. NOT invented here.
+actor_x_named      = <PINNED_ACTOR_ID@BUILD_HASH : pre-seal build-confirm>
+actor_reddit_named = <PINNED_ACTOR_ID@BUILD_HASH : pre-seal build-confirm>
+
+## The CLOSED literal named-entity list (sealed)
+
+# INTEGRITY-SENSITIVE. This list is a covert-curation surface (90 C4.1 class):
+# which named X accounts / named subreddits the agent sees materially shapes
+# Block N. It is NOT specified in any spec document read for this build and
+# the execution terminal will NOT invent it (brief: never invent spec; do not
+# create a steering surface). It is a REQUIRED sealed-config input that must
+# be populated and frozen before seal. Surfaced to Maran and recorded in
+# STATUS / EXECUTION-TERMINAL-STATUS. Until populated, the closed list is
+# EMPTY: Block N returns nothing, which is a safe, honest, non-load-bearing
+# state (the agent is told it is UNAVAILABLE; the run continues).
+#
+# Format when populated (closed, literal, no patterns, no wildcards):
+#   x_account:    @<handle>
+#   reddit_sub:   r/<subreddit>
+
+x_account:   (none — required sealed-config input, see above)
+reddit_sub:  (none — required sealed-config input, see above)
+
+# If counsel's scraping-ToS ruling (V3) removes Block N, the clean reversion
+# (131 §4 / 128 §7): strike Block N, the payload reverts to the ~13-block
+# Wave-11 set, R4 disappears, reconstruction is strictly more checkable, the
+# seal-readiness verdict holds unchanged. The build holds that reversion ready.

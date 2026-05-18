@@ -1,0 +1,16 @@
+# RESEARCH/FUNDING.txt — sealed funding/account facts (neutral, view-free)
+#
+# Neutral mechanical fact only. No market view, no instrument, no direction.
+
+- One isolated, dedicated, real-money Alpaca account (258088643), funded once,
+  on the order of a couple of hundred US dollars. No additional funds will be
+  added. Nobody takes over mid-stream.
+- Currency is United States dollars. Never AUD anywhere in any sealed object.
+- The account is rule-restricted: at sub-$2,000 equity Alpaca restricts to 1x
+  buying power, no margin, no short. The agent trades cash only and the
+  feasibility gate independently rejects any margin/short order, so the
+  account cannot go below zero (RELATIONSHIP.md clause 4).
+- The agent perceives its own real reconciled balance at each wake; the shown
+  balance is the truth and overrides any remembered or inferred number.
+- This is a single-program reality: commitment-v2 is the only program on this
+  one account (RELATIONSHIP.md).

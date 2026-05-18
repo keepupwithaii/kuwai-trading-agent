@@ -1,0 +1,21 @@
+# RESEARCH/REGIME_RULE.txt — sealed deterministic regime classifier (sealed)
+#
+# A deterministic, reproducible labelling transform over R1 inputs only. It
+# encodes NO market view and NO directional preference: it labels observable
+# state, it does not say what to do about it. A sceptic re-derives the label
+# bit-for-bit from the same sealed inputs.
+
+inputs: broad-market ETF (IVV) prior-session daily bars only, sealed window.
+
+trend_label =
+  up    if close > sma(close, 50) and sma(close,50) > sma(close,200)
+  down  if close < sma(close, 50) and sma(close,50) < sma(close,200)
+  mixed otherwise
+
+vol_label =
+  calm     if realised_vol_20d <  realised_vol_20d_median_1y
+  elevated if realised_vol_20d >= realised_vol_20d_median_1y
+
+# Output is the pair (trend_label, vol_label) only. No recommendation, no
+# sizing, no instrument. Realised-only (no implied/option data). If inputs are
+# MISSING/STALE the label is `unavailable` (never guessed).

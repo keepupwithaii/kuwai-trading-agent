@@ -54,9 +54,15 @@ in order. A general "go" is not a seal trigger.
       closed no-boldness, SCHEMA.md closed council-v1 with bound-(g)
       cited-item-to-step shape + deterministic disposition; MF-2 counterweight
       stays in the SYSTEM_PROMPT clause, not duplicated)
-- [ ] `commitment-v2/RESEARCH/` (PLAN, SOURCES, QUERY_TEMPLATE, RECENCY,
-      MISSING_POLICY, FUNDING, RECONSTRUCTION, SCRAPE_CHANNELS, REGIME_RULE +
-      sealed transform defs; trust-root + post-caused-price + social_cross_pump)
+- [x] `commitment-v2/RESEARCH/` (PLAN with N12 trust-root + post-caused-price
+      + social_cross_pump; SOURCES, QUERY_TEMPLATE parameter-free, RECENCY,
+      MISSING_POLICY, FUNDING, RECONSTRUCTION 4-class+R4 3-tier,
+      SCRAPE_CHANNELS scaffolded, REGIME_RULE, TRANSFORMS)
+      FLAG: SCRAPE_CHANNELS closed named-entity list is NOT invented
+      (integrity-sensitive curation surface, unspecified in spec). Required
+      sealed-config input before seal; empty-but-sealed = safe non-load-bearing
+      state for build/conformance/paper. Also actor ids/build hashes are the
+      execution-terminal-owned pre-seal Apify build-confirms (67).
 - [ ] `commitment-v2/code/` harness: loop (flock, reconcile-before-decide,
       deterministic client_order_id), feasibility gate (7 checks, broker/legal
       only), perception assembler, agent-blind floor_check() 0.45*E0,
@@ -79,6 +85,29 @@ in order. A general "go" is not a seal trigger.
 
 ## NEXT ACTION
 
+Build `commitment-v2/code/` incrementally, committing per module so any
+checkpoint is clean. Stdlib-only Python 3. Module order:
+1. `manifest_io.py` (read MODEL.txt/UNIVERSE/SCHEDULE etc deterministically)
+2. `hashlog.py` (append-only hash-chained log writer, prev-hash chain,
+   terminal HALT entry)
+3. `feasibility_gate.py` (the 7 checks, broker/legal only, never strategy)
+4. `floor.py` (agent-blind agent-unreachable floor_check, equity<=0.45*E0,
+   E0 captured at publish-precedes-trade boundary; placeholder + STATUS note
+   until then; one input/one threshold/one action, never re-based)
+5. `perception.py` (deterministic assembler to PERCEPTION_SCHEMA; MISSING/
+   STALE sentinels; Block N sealed-config, no live scrape in paper/conformance)
+6. `council.py` (PRO/CON/SYNTHESISER; deterministic post-parse guard; bound-(g)
+   shape; R-1 bind: schema-structural-only one retry, substantive bound-(g)
+   reject HALTs zero-retry; fail-safe-to-HALT)
+7. `amendment_loader.py` (ExecStartPre hash-check, no live-patch path)
+8. `standout.py` (deterministic read-only standout JSON; MF-7 no per-wake
+   class label; S-COUNCIL-CONTESTED dropped; symmetric vocabulary; reads only
+   the A5-stripped broadcast-safe projection)
+9. `agent_loop.py` (flock, reconcile-before-decide, deterministic
+   client_order_id, one model call STUBBED-capable, wires 1-8)
+Then MANIFEST.txt, repo-root README.md, conformance/ gate, deploy/.
+
+Old (superseded) prior note retained below for history:
 Build `commitment-v2/RESEARCH/`: PLAN.txt (static finite acyclic
 deterministic fetch+derive graph with sealed node bound + wall-clock budget;
 the corroboration node carrying the §1.1 trust-root + post-caused-price rule +
