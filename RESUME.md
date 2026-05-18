@@ -63,12 +63,10 @@ in order. A general "go" is not a seal trigger.
       sealed-config input before seal; empty-but-sealed = safe non-load-bearing
       state for build/conformance/paper. Also actor ids/build hashes are the
       execution-terminal-owned pre-seal Apify build-confirms (67).
-- [ ] `commitment-v2/code/` harness: loop (flock, reconcile-before-decide,
-      deterministic client_order_id), feasibility gate (7 checks, broker/legal
-      only), perception assembler, agent-blind floor_check() 0.45*E0,
-      council module (post-parse guard, R-1 retry bind), hash-chained log
-      writer, amendment loader (ExecStartPre hash-check, no live-patch),
-      deterministic standout-report generator
+- [x] `commitment-v2/code/` harness COMPLETE (9 modules, all compile;
+      council R-1 bind smoke-verified): manifest_io, hashlog, feasibility_gate,
+      floor, perception, grounding_linter, council, amendment_loader, standout,
+      agent_loop. Commits 086f866, 7f4a2ac.
 - [ ] `commitment-v2/MANIFEST.txt` (per-file SHA-256 + pinned code commit; build
       artefact only; real pre-registration hash is the seal step, Maran-gated)
 - [ ] repo-root `README.md` (94 C2.6 verbatim seal claim + not-advice/ASIC +
@@ -85,8 +83,28 @@ in order. A general "go" is not a seal trigger.
 
 ## NEXT ACTION
 
-Build `commitment-v2/code/` incrementally, committing per module so any
-checkpoint is clean. Stdlib-only Python 3. Module order:
+code/ harness is COMPLETE. Now, in order:
+1. `commitment-v2/MANIFEST.txt` (per-file SHA-256 of every sealed file +
+   pinned code git commit SHA; BUILD ARTEFACT ONLY; the real pre-registration
+   hash is the Maran-gated seal step, not this).
+2. repo-root `README.md` (94 C2.6 verbatim seal claim + not-advice/ASIC line +
+   verify-hash-and-OTS steps + the SOL rights line; NOT inside commitment-v2/;
+   no LICENSE file).
+3. `conformance/gate.py` binary suite: 139 §2 plumbing + C-MODEL,
+   C-COUNCIL-PROMPT (byte-identity to freshly re-derived 151 §4 + January 2026
+   fill, via build_tools/council_prompt_extract), C-COUNCIL-SEAL,
+   C-COUNCIL-SCHEMA-GUARD (+ R-1 Fixture A substantive-reject-zero-retry & B
+   schema-garble-exactly-one-retry), C-COUNCIL-HALT-SAFE (retry-trigger-scope),
+   C-COUNCIL-A5, C-STANDOUT-ISOLATION, C-CONCESSION, C-MANIFEST, C-SECRETS,
+   C-LOCKFILE, C-RELATIONSHIP. Model STUBBED, no order, no network, no seal
+   artefact. Binary all-pass; on fail fix the BUILD, never weaken an assertion.
+4. `deploy/` systemd service+timer, watchdog service+timer, external dead-man
+   hook, RUNBOOK (27 §3-§6) -- artefacts only, not executed here.
+5. run the binary conformance gate to green.
+6. deploy to VPS + ONE compressed PAPER cycle on the PAPER key, observe green.
+7. STOP, report, HOLD at pause point (b).
+
+Superseded prior per-module note kept for history:
 1. `manifest_io.py` (read MODEL.txt/UNIVERSE/SCHEDULE etc deterministically)
 2. `hashlog.py` (append-only hash-chained log writer, prev-hash chain,
    terminal HALT entry)
