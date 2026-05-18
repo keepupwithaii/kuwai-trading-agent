@@ -21,7 +21,9 @@ ufw --force reset >/dev/null
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow OpenSSH
-yes | ufw enable >/dev/null
+# Use --force to avoid the interactive prompt; never `yes | ufw enable` since
+# the resulting SIGPIPE under `set -o pipefail` aborts the bootstrap.
+ufw --force enable >/dev/null
 
 # 3. Unattended security upgrades
 dpkg-reconfigure -fnoninteractive unattended-upgrades || true
