@@ -1,0 +1,49 @@
+# Security-critical .gitignore (27 §3.6 + the C-SECRETS sealed-tree-secret-free
+# assertion). This is a REPO-ROOT file. It is NOT inside commitment-v2/.
+# Nothing here may ever enter git history. A credential in the sealed tree or
+# in any commit fails C-SECRETS and is a build defect, never an exception.
+
+# Credentials and secret-bearing config
+.env
+.env.*
+*.env
+EnvironmentFile
+*EnvironmentFile*
+secrets/
+*.pem
+*.key
+*_key
+*_secret
+APCA*
+ANTHROPIC_API_KEY*
+APIFY*
+*token*
+*.credentials
+
+# State of record, ledgers, account-bearing logs (never published)
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+ledger.db*
+data/
+logs/
+*.log
+events.jsonl
+heartbeat*
+
+# Local build/conformance scratch (not the sealed tree, not published)
+build_tools/__pycache__/
+conformance/__pycache__/
+**/__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+
+# Seal-time carriers are produced only at the Maran-triggered seal step,
+# never committed by the build
+commitment-v2.zip
+commitment-v2.zip.ots
+*.ots
