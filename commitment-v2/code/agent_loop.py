@@ -78,9 +78,30 @@ def run_wake(deps: dict, log_path: Path, *, e0, strategy_id="commitment-v2",
 
         rth_open = clock.rth_open()
 
+        # B1 fix (defined bug class per WEEKLY-POLICY: harness was assembling
+        # the perception payload without the full own-account state, so the
+        # sealed prompt's "you are shown your account's real balance" promise
+        # was not met). Merge broker.account() into recon["raw"]["account"]
+        # so perception.assemble sees ALL SIX spec-required own-account keys:
+        # equity, cash, settled_cash, positions, prior_wake_orders,
+        # pdt_daytrade_count. Positions arrive from reconcile; the other
+        # five come from the account() call.
+        raw = recon.get("raw", {}) or {}
+        raw_acct = raw.get("account", {}) or {}
+        raw["account"] = {
+            "equity": acct.get("equity", 0.0),
+            "cash": acct.get("cash", acct.get("settled_cash", 0.0)),
+            "settled_cash": acct.get("settled_cash", 0.0),
+            "positions": raw_acct.get("positions", []),
+            "prior_wake_orders": acct.get("prior_wake_orders", []),
+            "pdt_daytrade_count": acct.get("pdt_daytrade_count", 0),
+            "as_of": acct.get("as_of"),
+            "status": acct.get("status", "OK"),
+        }
+        recon["raw"] = raw
+
         # Assemble the deterministic perception payload (no floor distance).
-        payload = perception_mod.assemble(recon.get("raw", {}),
-                                          live_block_n=live_block_n)
+        payload = perception_mod.assemble(raw, live_block_n=live_block_n)
         log.append("PAYLOAD", {"schema": payload.get("schema")})
 
         # The ONE model decision call (STUBBED in the conformance gate).

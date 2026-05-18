@@ -64,12 +64,21 @@ class AlpacaBroker:
     def account(self) -> dict:
         try:
             a = _http_json("GET", f"{self.base}/v2/account", self._h)
+            cash = float(a.get("cash", 0))
             return {
                 "status": a.get("status", "UNKNOWN"),
                 "equity": float(a.get("equity", 0)),
-                "settled_cash": float(a.get("cash", 0)),
+                # B1: surface both 'cash' and 'settled_cash'. On a cash-by-rule
+                # sub-$2000 Alpaca account they are the same; the spec carries
+                # both fields explicitly.
+                "cash": cash,
+                "settled_cash": cash,
                 "tracked_qty": {},  # populated by reconcile()
                 "pdt_daytrade_count": int(a.get("daytrade_count", 0)),
+                # prior_wake_orders is harness-side state; the live-runtime
+                # version would also pull /v2/orders?status=closed. Empty here
+                # is honest until that wiring lands.
+                "prior_wake_orders": [],
                 "as_of": a.get("created_at"),
             }
         except urllib.error.HTTPError as e:
@@ -77,9 +86,20 @@ class AlpacaBroker:
 
     def reconcile(self) -> dict:
         # Pull positions; the harness uses tracked_qty to bound sells.
+        # B1: also emit a positions[] list with symbol/tracked_qty/avg_entry,
+        # which the perception schema's O_own_account.positions field expects.
         pos = _http_json("GET", f"{self.base}/v2/positions", self._h)
         tracked = {p["symbol"]: float(p["qty"]) for p in pos}
-        return {"trade_date": "", "raw": {"account": {"tracked_qty": tracked}}}
+        positions = [
+            {
+                "symbol": p["symbol"],
+                "tracked_qty": float(p["qty"]),
+                "avg_entry": float(p.get("avg_entry_price", 0) or 0),
+            } for p in pos
+        ]
+        return {"trade_date": "",
+                "raw": {"account": {"tracked_qty": tracked,
+                                     "positions": positions}}}
 
     def submit(self, order, coid: str) -> dict:
         body = {

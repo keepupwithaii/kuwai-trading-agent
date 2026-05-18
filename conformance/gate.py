@@ -294,6 +294,74 @@ def _c_standout():
     return True, "read-only, coarse, no contested, prose OFF, MF-7 held"
 
 
+# ---- C-PAYLOAD-OWN-ACCOUNT (B1 backstop) -------------------------------
+# The agent's perception payload's O_own_account block MUST carry all six
+# spec-required keys (equity, cash, settled_cash, positions,
+# prior_wake_orders, pdt_daytrade_count). The sealed system prompt promises
+# the agent "you are shown your account's real balance". A blank payload is
+# a defined bug class (harness/conformance not assembling the sealed spec).
+@check("C-PAYLOAD-OWN-ACCOUNT")
+def _c_payload_own_account():
+    # Stub a representative merged account state (the shape agent_loop now
+    # passes into perception.assemble after the B1 fix), and assert all six
+    # required keys arrive in the assembled payload's value dict.
+    stub_account = {
+        "equity": 153.42,
+        "cash": 102.10,
+        "settled_cash": 102.10,
+        "positions": [{"symbol": "AAPL", "tracked_qty": 0.5,
+                        "avg_entry": 195.00}],
+        "prior_wake_orders": [],
+        "pdt_daytrade_count": 0,
+        "as_of": "2026-05-19T00:00:00+00:00",
+        "status": "ACTIVE",
+    }
+    payload = perception_mod.assemble({"account": stub_account},
+                                      live_block_n=False)
+    o = payload.get("blocks", {}).get("O_own_account", {})
+    value = o.get("value", {})
+    if not isinstance(value, dict):
+        return False, "O_own_account.value not a dict"
+    required = {"equity", "cash", "settled_cash", "positions",
+                "prior_wake_orders", "pdt_daytrade_count"}
+    missing = required - set(value.keys())
+    if missing:
+        return False, f"missing keys in O_own_account.value: {sorted(missing)}"
+    # Spot-check the values flow through unchanged (the sealed prompt's
+    # 'shown balance is the truth' promise).
+    if value["equity"] != 153.42 or value["cash"] != 102.10:
+        return False, "stubbed equity/cash did not flow into the payload"
+    if not value["positions"] or value["positions"][0]["symbol"] != "AAPL":
+        return False, "positions did not flow into the payload"
+    return True, "all 6 spec-required own-account keys present and flowing"
+
+
+# ---- C-MANIFEST-IO-PARSE (M4 backstop) ---------------------------------
+# manifest_io.read_model must parse MODEL.txt to (model_id, sampling_note)
+# without raising, independent of C-MODEL's byte-match. Catches a code
+# regression in the loader that C-MODEL alone wouldn't catch.
+@check("C-MANIFEST-IO-PARSE")
+def _c_manifest_io():
+    sys.path.insert(0, str(SEALED / "code"))
+    import manifest_io as mio
+    try:
+        model_id, sampling_note = mio.read_model(SEALED)
+    except Exception as e:
+        return False, f"read_model raised: {e!r}"
+    if model_id != "claude-opus-4-7":
+        return False, f"model_id wrong: {model_id!r}"
+    if not sampling_note or "native" not in sampling_note.lower():
+        return False, "sampling_note missing or doesn't carry 'native'"
+    # universe + schedule readers should also parse without raising
+    u = mio.read_universe(SEALED)
+    if not u or len(u) < 10:
+        return False, "read_universe returned too few entries"
+    s = mio.read_schedule(SEALED)
+    if s.get("crypto_leg") != "absent_sealed":
+        return False, "schedule crypto_leg not absent_sealed"
+    return True, f"read_model OK ({model_id}); read_universe {len(u)}; read_schedule OK"
+
+
 # ---- Plumbing (139 §2.1): decision-blind one-shot, stubbed --------------
 @check("PLUMBING-DECISION-BLIND")
 def _plumbing():
