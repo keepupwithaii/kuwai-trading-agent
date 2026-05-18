@@ -1,0 +1,13 @@
+# /etc/systemd/system/kuwai-watchdog.timer
+# Every 30 min, own process, own timer (27 §4.2 / §3.2). Intentionally dumb
+# and tiny so it almost never fails.
+[Unit]
+Description=KUWAI commitment-v2 watchdog schedule (every 30 min)
+
+[Timer]
+OnCalendar=*:00,30 UTC
+Persistent=true
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

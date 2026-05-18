@@ -1,0 +1,16 @@
+# /etc/systemd/system/kuwai-watchdog.service
+# Independent dead-man's-switch (27 §4.2). The loop cannot detect its own
+# death; only an outside observer can. Calendar-aware: silence on a US market
+# holiday/weekend is expected and NOT death. Pings the external dead-man on a
+# healthy check so a total VPS loss is also caught.
+[Unit]
+Description=KUWAI commitment-v2 watchdog (calendar-aware silently-dead test)
+
+[Service]
+Type=oneshot
+User=kuwai
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/etc/kuwai/agent.env
+ExecStart=/usr/bin/python3 -B /opt/kuwai/watchdog.py
+TimeoutStartSec=120
+NoNewPrivileges=true
