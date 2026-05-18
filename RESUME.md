@@ -37,16 +37,19 @@ in order. A general "go" is not a seal trigger.
       else; C-MODEL backstop)
 - [x] `commitment-v2/TOOLS.md` (3-tool contract: perceive / propose_orders /
       record_reasoning, with bounds, 102 R2.2, transcribed)
-- [ ] `commitment-v2/PERCEPTION_SCHEMA.md` (~13 blocks A-M + Block N + N-CONTEXT
-      fields + untrusted_text/embedded_untrusted fencing + source enum)
-- [ ] `commitment-v2/UNIVERSE.txt` (broad fractional-eligible US equities/ETFs;
-      crypto EXCLUDED everywhere; no crypto subset)
-- [ ] `commitment-v2/SCHEDULE.txt` (~30-min RTH window-guarded + 1 pre-close
-      wake; NO crypto leg, NO 24/7 timer)
-- [ ] `commitment-v2/RELATIONSHIP.md` (single-program reality per brief §0 / 67;
-      clause-4 = V1-resolved clean-correction wording)
-- [ ] `commitment-v2/WEEKLY-POLICY.md` (94 C2.5 verbatim closed outcome-blind)
-- [ ] `commitment-v2/corpus/` (94 C2.2 closed exclusion set; view-free)
+- [x] `commitment-v2/PERCEPTION_SCHEMA.md` (~13 blocks A-M + Block N + N-CONTEXT
+      fields + untrusted_text/embedded_untrusted fencing + source enum + audit
+      fields marked sealed-log-only never broadcast A5)
+- [x] `commitment-v2/UNIVERSE.txt` (broad all-sector fractional-eligible US
+      equities/ETFs, alphabetical non-thesis; crypto EXCLUDED; no subset)
+- [x] `commitment-v2/SCHEDULE.txt` (~30-min RTH window-guarded + 1 pre-close
+      wake; crypto leg absent-and-sealed; UTC timer Persistent)
+- [x] `commitment-v2/RELATIONSHIP.md` (single-program reality per brief §0 / 67;
+      clause-4 = V1-resolved clean-correction wording; reversion held ready)
+- [x] `commitment-v2/WEEKLY-POLICY.md` (94 C2.5 verbatim closed outcome-blind +
+      10 closed BUG-CLASSES)
+- [x] `commitment-v2/corpus/` (94 C2.2 closed exclusion set; view-free;
+      README + neutral NO-EDGE)
 - [ ] `commitment-v2/COUNCIL/` (PRO_PROMPT, CON_PROMPT, SYNTHESISER_PROMPT,
       FAULT_LIST.txt, SCHEMA.md; bound-(g) cited-item-to-step shape; MF-2
       symmetric counterweight is in the SYSTEM_PROMPT council clause already)
@@ -75,10 +78,11 @@ in order. A general "go" is not a seal trigger.
 
 ## NEXT ACTION
 
-Build `commitment-v2/PERCEPTION_SCHEMA.md`: the perception-bundle schema for
-own-account state + market data + the ~13 blocks A-M + Block N, with the
-N-CONTEXT fields (author_id, post_id, captured_at, edit_state enum), the
-untrusted_text / embedded_untrusted fencing, the extended source enum, the
-audit fields (corroboration, single_source_social, social_cross_pump_pattern,
-truncated, edit_state) marked input-side-sealed-log-only and NEVER broadcast
-(A5). Per 102 R2.2, 131 §1.2/§2.2, 94 C2.1.
+Build `commitment-v2/COUNCIL/`: PRO_PROMPT.md, CON_PROMPT.md,
+SYNTHESISER_PROMPT.md, FAULT_LIST.txt (closed, excludes boldness),
+SCHEMA.md (closed council-v1: 7 dimension verdicts a-g + one-line whys +
+derived overall + derived disposition, NO caution field, NO debate_contested).
+Dimension (g) reason bound to the closed cited-item-to-step incoherence shape
+(MF-1 Option A, 146 §1). The MF-2 symmetric counterweight already lives in the
+SYSTEM_PROMPT council clause (do not duplicate into prompts here). Per 145 §1.1,
+141, 146, 151 §1 (R-1 bind is enforced in code/, not in these prompts).
