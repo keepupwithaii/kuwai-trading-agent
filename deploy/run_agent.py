@@ -69,6 +69,13 @@ def main() -> int:
     res = agent_loop.run_wake(deps, Path("/var/lib/kuwai/ledger.log"),
                               e0=e0, live_block_n=(mode == "live"))
     print(res.get("state"))
+    # Dashboard exporter: read-only of the ledger, one-directional A5; off the
+    # integrity-critical path; never affects the agent.
+    try:
+        import exporter
+        exporter.main()
+    except Exception as e:
+        print(f"exporter error (non-fatal): {e!r}")
     return 0 if res.get("state") in ("OK", "ALREADY_HALTED") else 0
 
 
