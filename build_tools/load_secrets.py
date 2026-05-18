@@ -42,20 +42,31 @@ def _find(text: str, *patterns: str) -> str | None:
 
 
 def _alpaca_pair(text: str) -> tuple[str | None, str | None]:
-    # Alpaca key id is typically PK... (paper) or AK... (live), 20 chars
-    # alphanumeric. Secret is 40 chars base64-ish. Be tolerant of paste format.
-    key = _find(text,
-                r"\b(PK[A-Z0-9]{16,22})\b",
-                r"\b(AK[A-Z0-9]{16,22})\b",
-                r"key[^\n]*?[:= ]\s*([A-Z0-9]{18,24})",
-                )
-    sec = _find(text,
-                r"\b([A-Za-z0-9/+]{36,48})\b(?![A-Za-z0-9/+])",
-                r"secret[^\n]*?[:= ]\s*([A-Za-z0-9/+]{36,48})",
-                )
-    # Exclude pure-hex tokens (commit shas / digests) from the secret heuristic
-    if sec and re.fullmatch(r"[0-9a-fA-F]{36,48}", sec):
-        sec = None
+    # The RTF format is labelled: a "Key:" line then a "Secret:" line. The
+    # value on each label-line is the only non-whitespace token of length
+    # 20-48 alphanumeric (Alpaca keys vary in length; new-style keys are
+    # often 24+ chars). Parse labelled lines first, then fall back to shape.
+    key = sec = None
+    for ln in text.splitlines():
+        s = ln.strip()
+        m = re.match(r"(?i)^key\s*[:=]\s*(\S+)$", s)
+        if m and not key:
+            key = m.group(1)
+            continue
+        m = re.match(r"(?i)^secret\s*[:=]\s*(\S+)$", s)
+        if m and not sec:
+            sec = m.group(1)
+            continue
+    # Shape fallbacks if labels missing
+    if not key:
+        key = _find(text,
+                    r"\b(PK[A-Z0-9]{16,28})\b",
+                    r"\b(AK[A-Z0-9]{16,28})\b")
+    if not sec:
+        sec = _find(text,
+                    r"\b([A-Za-z0-9/+]{36,60})\b(?![A-Za-z0-9/+])")
+    if sec and re.fullmatch(r"[0-9a-fA-F]{36,64}", sec):
+        sec = None  # exclude pure-hex (digest, not credential)
     return key, sec
 
 

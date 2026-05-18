@@ -32,9 +32,11 @@ install -d -o kuwai -g kuwai -m 750 /opt/kuwai
 install -d -o kuwai -g kuwai -m 750 /var/lib/kuwai
 install -d -o root  -g root  -m 700 /etc/kuwai
 
-# 5. Lay out the build (the operator scp's the tarball to /tmp/kuwai-bundle.tgz)
+# 5. Lay out the build (the operator scp's the tarball to /tmp/kuwai-bundle.tgz).
+#    The tarball has top-level dirs commitment-v2/ and deploy/ which land
+#    directly under /opt/kuwai/ (no strip-components).
 if [[ -f /tmp/kuwai-bundle.tgz ]]; then
-    tar -xzf /tmp/kuwai-bundle.tgz -C /opt/kuwai/ --strip-components=1
+    tar -xzf /tmp/kuwai-bundle.tgz -C /opt/kuwai/
     chown -R kuwai:kuwai /opt/kuwai
 fi
 
