@@ -23,6 +23,13 @@ FLOOR_SCALAR = 0.45  # signed by Maran (67 2026-05-18); sealed constant
 # captured only at the Maran-triggered seal step. Never re-based once set.
 E0_UNSET = None
 
+# Captured at the publish-precedes-trade boundary (Maran-triggered seal step
+# 2026-05-19, T-0 against LIVE account 258088643). Sealed constant; never
+# re-based intra-run; only a public commitment-vN+1 under the closed
+# weekly outcome-blind policy could ever change it. This is the floor's
+# fixed reference point: floor_check holds when equity > 0.45 * E0_BASELINE_USD.
+E0_BASELINE_USD = 174.28
+
 
 def floor_value(e0: float) -> float:
     return FLOOR_SCALAR * float(e0)

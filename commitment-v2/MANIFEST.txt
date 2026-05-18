@@ -2,7 +2,7 @@
 # NOT the pre-registration hash; the real seal hash is the
 # Maran-gated seal step (pause point (b)). MANIFEST.txt excludes
 # itself. Paths are POSIX-relative to commitment-v2/.
-pinned_code_git_commit = 2beb8a90605fed921499c59e4c62c24090feb15c
+pinned_code_git_commit = dc596ca4cdf22e41eb343bb07ad4531acae07d7d
 
 e55cc5246d85d1188c21a37e2d9a77917583d012bdbb61809eeb1886a577b608  COUNCIL/CON_PROMPT.md
 f8dc0bcd6821155a99a013f5aa2282914e246b7a512179cb69bbf18f49f30bcd  COUNCIL/FAULT_LIST.txt
@@ -32,7 +32,7 @@ d7a9018660980c4db65cb56ed888d2d2d38ca2575c93d96b0ef76131fefbec08  UNIVERSE.txt
 4e1f940d8e3663ffcb2a63b2319c3c46bb32bdf93e811d64cb1a7a8f03c9af27  code/amendment_loader.py
 d8b43a7d081b3ccec4fdeae22f96c1c8e002fd83aaac871bfef2a9c667ef1a6e  code/council.py
 1edf0594e6f5deeab32c4b3257fb3c1441b80b47160d1de148f51b6e766a4f78  code/feasibility_gate.py
-5a7283d9b0b0e62e3b62528e78e0f35b27e8fb9837b0278b6bb23a014d6a38d2  code/floor.py
+bc90fb2b33ed0dc1790080834f8752cefba2c76e4f11e133756fbc52cb664f59  code/floor.py
 8d80596b1a287b75cdb836adadd02111e4f7e1fcb44ededff61f9947f7efe266  code/grounding_linter.py
 ace5f0f41dce5612816e4de09c7270658d2eef916f777e5179208fbb99a3ed05  code/hashlog.py
 b588efb1b0d1078c195b54da9b921ab47f8b995dcdc1fd5cc54ea94ae54853ca  code/manifest_io.py

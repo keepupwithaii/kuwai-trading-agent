@@ -48,15 +48,19 @@ def main() -> int:
         return 0
 
     import agent_loop  # sealed module
+    import floor       # sealed module; carries the seal-time E0 baseline
 
-    e0_raw = os.environ.get("KUWAI_E0")  # captured at the seal boundary only
-    e0 = float(e0_raw) if e0_raw else None
-    if e0 is None:
-        # The floor cannot be evaluated without a captured E0. Before the
-        # Maran-gated seal boundary the agent does not run live; a paper dry
-        # run passes a synthetic E0 via KUWAI_E0. Refuse to run live blind.
-        sys.stderr.write("KUWAI_E0 not set; refusing to run without a "
-                         "captured floor baseline\n")
+    # The sealed E0_BASELINE_USD constant is the canonical floor reference.
+    # The KUWAI_E0 env var is honoured ONLY as an override and ONLY in paper
+    # mode (the unsealed pre-seal dry-run path). In live mode the sealed
+    # constant always wins; the env cannot override the seal.
+    if mode == "live":
+        e0 = float(floor.E0_BASELINE_USD)
+    else:
+        e0_raw = os.environ.get("KUWAI_E0")
+        e0 = float(e0_raw) if e0_raw else float(floor.E0_BASELINE_USD)
+    if e0 is None or e0 <= 0:
+        sys.stderr.write("E0 baseline missing or non-positive\n")
         return 3
 
     # Build real deps (broker/clock/decider/synth) from env. The sealed loop
