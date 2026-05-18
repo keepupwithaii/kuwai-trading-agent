@@ -24,27 +24,29 @@ scrape_in_conformance  = never
 # execution-terminal-owned, mechanical). The exact Actor ids and the exact
 # pinned build hashes are filled at the build-confirm step before seal and
 # verified by C-* / RECONSTRUCTION Tier-1. NOT invented here.
-actor_x_named      = <PINNED_ACTOR_ID@BUILD_HASH : pre-seal build-confirm>
-actor_reddit_named = <PINNED_ACTOR_ID@BUILD_HASH : pre-seal build-confirm>
+actor_x_named      = apidojo/tweet-scraper@0.0.1376
+actor_reddit_named = trudax/reddit-scraper-lite@4.22.4
 
 ## The CLOSED literal named-entity list (sealed)
 
-# INTEGRITY-SENSITIVE. This list is a covert-curation surface (90 C4.1 class):
-# which named X accounts / named subreddits the agent sees materially shapes
-# Block N. It is NOT specified in any spec document read for this build and
-# the execution terminal will NOT invent it (brief: never invent spec; do not
-# create a steering surface). It is a REQUIRED sealed-config input that must
-# be populated and frozen before seal. Surfaced to Maran and recorded in
-# STATUS / EXECUTION-TERMINAL-STATUS. Until populated, the closed list is
-# EMPTY: Block N returns nothing, which is a safe, honest, non-load-bearing
-# state (the agent is told it is UNAVAILABLE; the run continues).
-#
-# Format when populated (closed, literal, no patterns, no wildcards):
-#   x_account:    @<handle>
-#   reddit_sub:   r/<subreddit>
+# Maran-ratified 2026-05-19 per 126 §5.3 (operator-owned one-time
+# conscious selection on diffable sealed content). Criterion: neutral
+# and general-market-relevant; explicitly NOT GTA / Take-Two / Rockstar
+# / gaming-targeted (thesis-targeted membership is laundered steering
+# and breaks the seal claim). Folds into the existing eighth concession
+# clause; no new on-camera concession beat.
 
-x_account:   (none — required sealed-config input, see above)
-reddit_sub:  (none — required sealed-config input, see above)
+x_account:   @SECGov
+x_account:   @federalreserve
+x_account:   @USTreasury
+x_account:   @WhiteHouse
+x_account:   @CNBC
+x_account:   @Reuters
+x_account:   @business
+reddit_sub:  r/investing
+reddit_sub:  r/stocks
+reddit_sub:  r/StockMarket
+reddit_sub:  r/economy
 
 # If counsel's scraping-ToS ruling (V3) removes Block N, the clean reversion
 # (131 §4 / 128 §7): strike Block N, the payload reverts to the ~13-block
