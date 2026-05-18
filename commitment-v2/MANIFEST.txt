@@ -2,7 +2,7 @@
 # NOT the pre-registration hash; the real seal hash is the
 # Maran-gated seal step (pause point (b)). MANIFEST.txt excludes
 # itself. Paths are POSIX-relative to commitment-v2/.
-pinned_code_git_commit = 1282db0e21e031421b47f21a7280c822df30bbd9
+pinned_code_git_commit = 433c4cb6506f90a15c32bc3bfb62645cce543ed8
 
 e55cc5246d85d1188c21a37e2d9a77917583d012bdbb61809eeb1886a577b608  COUNCIL/CON_PROMPT.md
 f8dc0bcd6821155a99a013f5aa2282914e246b7a512179cb69bbf18f49f30bcd  COUNCIL/FAULT_LIST.txt
