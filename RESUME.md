@@ -126,7 +126,14 @@ Superseded prior per-module note kept for history below:
 4. [x] `deploy/` artefacts committed (b4c1411): kuwai-agent.service, .timer,
    kuwai-watchdog.service, .timer, RUNBOOK.md, thin run_agent.py entrypoint.
    NOT inside commitment-v2/. Secrets ONLY from /etc/kuwai/agent.env chmod 600.
-5. [ ] VPS deploy + ONE compressed PAPER cycle: NEXT (see "Plug-in plan").
+5. [partial] VPS deploy DONE; first paper wake reached HALT fail-safe at
+      Anthropic 400 ("temperature is deprecated for claude-opus-4-7").
+      AMENDMENT applied (Maran-authorised 2026-05-19, broker-or-API-change
+      reason class): MODEL.txt now records native-sampling (byte-exact two
+      lines), client drops temperature/top_p/top_k, README seventh-concession
+      paragraph added, manifest_io updated, C-MODEL target corrected,
+      MANIFEST regenerated, conformance gate GREEN 13/13. NEXT: redeploy +
+      retry wake.
 6. [ ] STOP, report, HOLD at pause point (b).
 
 Superseded prior per-module note kept for history:

@@ -14,18 +14,23 @@ SEALED_ROOT = Path(__file__).resolve().parent.parent  # commitment-v2/
 
 
 def read_model(root: Path | None = None) -> tuple[str, str]:
-    """Return (model_id, temperature) from MODEL.txt. Exactly two bare lines."""
+    """Return (model_id, sampling_note) from MODEL.txt. Exactly two
+    non-empty lines: line 1 is the pinned snapshot id; line 2 is the
+    sampling-note string. Anthropic deprecated temperature/top_p/top_k for
+    claude-opus-4-7; the sealed record states what is used, not what was
+    intended. (Maran-authorised amendment 2026-05-19, reason class
+    'broker or API change' per WEEKLY-POLICY.md.)"""
     root = root or SEALED_ROOT
     lines = (root / "MODEL.txt").read_text(encoding="utf-8").splitlines()
     lines = [ln for ln in lines if ln.strip() != ""]
     if len(lines) != 2:
         raise ValueError(f"MODEL.txt must be exactly two lines, got {len(lines)}")
-    model_id, temperature = lines[0].strip(), lines[1].strip()
+    model_id, sampling_note = lines[0].strip(), lines[1].strip()
     if not model_id:
         raise ValueError("MODEL.txt model id empty")
-    if temperature != "0.7":
-        raise ValueError(f"MODEL.txt temperature must be 0.7, got {temperature!r}")
-    return model_id, temperature
+    if not sampling_note:
+        raise ValueError("MODEL.txt sampling-note line empty")
+    return model_id, sampling_note
 
 
 def read_universe(root: Path | None = None) -> list[str]:

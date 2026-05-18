@@ -32,8 +32,18 @@ def _http_json(method: str, url: str, headers: dict, body: dict | None = None,
         data = json.dumps(body).encode("utf-8")
         headers = {**headers, "Content-Type": "application/json"}
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    with urllib.request.urlopen(req, timeout=timeout, context=CTX) as r:
-        return json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=timeout, context=CTX) as r:
+            return json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        # Surface the server's error payload (no secrets in it; the
+        # APCA/Anthropic error bodies describe what is wrong with the request).
+        try:
+            payload = e.read().decode("utf-8", errors="replace")
+        except Exception:
+            payload = ""
+        raise urllib.error.HTTPError(
+            e.url, e.code, f"{e.reason} :: {payload[:600]}", e.headers, None)
 
 
 # ---- Alpaca ----------------------------------------------------------------
@@ -182,13 +192,16 @@ class AnthropicDecider:
         lines = [l for l in model_file.read_text("utf-8").splitlines()
                  if l.strip()]
         self.model = lines[0]
-        self.temperature = float(lines[1])
+        # temperature/top_p/top_k deprecated for this model; native sampling
 
     def __call__(self, payload: dict, sealed_prompt: str) -> dict:
+        # Anthropic deprecated temperature / top_p / top_k for claude-opus-4-7.
+        # Adaptive thinking is automatic; do not pass thinking.type. The
+        # agent runs at the model's native sampling (see MODEL.txt and the
+        # seventh on-camera concession line).
         body = {
             "model": self.model,
             "max_tokens": 1024,
-            "temperature": self.temperature,
             "system": sealed_prompt,
             "tools": _TOOLS,
             "messages": [
@@ -225,7 +238,7 @@ class AnthropicSynth:
         lines = [l for l in model_file.read_text("utf-8").splitlines()
                  if l.strip()]
         self.model = lines[0]
-        self.temperature = float(lines[1])
+        # temperature/top_p/top_k deprecated for this model; native sampling
         seal = Path("/opt/kuwai/commitment-v2")
         if not seal.is_dir():
             seal = (Path(__file__).resolve().parent.parent / "commitment-v2")
@@ -233,13 +246,11 @@ class AnthropicSynth:
                               ).read_text("utf-8")
 
     def __call__(self, attempt: int = 1, **_) -> str:
-        # Inputs are passed in via the payload field; on this VPS-side the
-        # caller (run_agent) constructs the user message with the three sealed
-        # in-process objects encoded as JSON.
+        # No temperature / top_p / top_k on claude-opus-4-7 (Anthropic
+        # deprecated). The synthesiser runs at the model's native sampling.
         body = {
             "model": self.model,
             "max_tokens": 1024,
-            "temperature": self.temperature,
             "system": self.synth_prompt,
             "messages": [
                 {"role": "user", "content": "emit council-v1 report only"},

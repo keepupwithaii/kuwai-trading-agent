@@ -2,7 +2,7 @@
 # NOT the pre-registration hash; the real seal hash is the
 # Maran-gated seal step (pause point (b)). MANIFEST.txt excludes
 # itself. Paths are POSIX-relative to commitment-v2/.
-pinned_code_git_commit = bd3cb3831ead041b1b0a41677039a63853e45cc2
+pinned_code_git_commit = 3b55d3c99649b1296a7ac8e8f6440550c072484d
 
 e55cc5246d85d1188c21a37e2d9a77917583d012bdbb61809eeb1886a577b608  COUNCIL/CON_PROMPT.md
 f8dc0bcd6821155a99a013f5aa2282914e246b7a512179cb69bbf18f49f30bcd  COUNCIL/FAULT_LIST.txt
@@ -10,7 +10,7 @@ f4f9a5f9f631daa267b2dc8ea1256be663ccceb0b15180067b9a170ea849cf99  COUNCIL/PRO_PR
 5282b1977813d5f65edbd03fde57620ba4595b4ac86a32ebadfaf0015fee3125  COUNCIL/SCHEMA.md
 f7376037f47600b5ce82677fa6e474023f56f8dec37940794fe18353de15b1c9  COUNCIL/SYNTHESISER_PROMPT.md
 d4a0fd2b8c05e97b5371e273afe1ed379f93da30d803fa89e5a9e1dfc4de1694  LOCKFILE.txt
-454d1077090d4a26fae60a18d87859ebb7ef3834ca8306b861ce3e0df22b3bd1  MODEL.txt
+aedbecbfeead803939082fa713bdc1b4d980e59d510fd03cacaff53614954da4  MODEL.txt
 672c6ec443b6d2a79629219d3afca97ce31c5ea94374a80b2ae84ee6f2f4df4d  PERCEPTION_SCHEMA.md
 9f5f1414241aecdd674fa00980dfd2b023249603c0de9149b2b72d0126a51462  RELATIONSHIP.md
 07774245b0822007bee27957465b8a69f5c1b096745220ade5cd17471e0ef224  RESEARCH/FUNDING.txt
@@ -35,7 +35,7 @@ d8b43a7d081b3ccec4fdeae22f96c1c8e002fd83aaac871bfef2a9c667ef1a6e  code/council.p
 5a7283d9b0b0e62e3b62528e78e0f35b27e8fb9837b0278b6bb23a014d6a38d2  code/floor.py
 8d80596b1a287b75cdb836adadd02111e4f7e1fcb44ededff61f9947f7efe266  code/grounding_linter.py
 ace5f0f41dce5612816e4de09c7270658d2eef916f777e5179208fbb99a3ed05  code/hashlog.py
-a6fc492da1fcad4f0eb6c142499b2843bb45d399d9f7b41e5eed8d88ed5d1b05  code/manifest_io.py
+b588efb1b0d1078c195b54da9b921ab47f8b995dcdc1fd5cc54ea94ae54853ca  code/manifest_io.py
 055f0c1e170cbc41c666eed128a528ab3d4b02ffea91efad914d84f72f49bc5f  code/perception.py
 05ef229fb12dd3c9ec27c605b522c0d7196acd901755bac57a94f58ea4aac06e  code/standout.py
 313cd5bb8609cdcd9be02637dfbb97570504187b34ebe3d418974c886ad58b82  corpus/NO-EDGE.md

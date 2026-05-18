@@ -24,6 +24,13 @@ trigger; the hash and Release URL below are filled only at that step.
 > performance claim. Most likely it loses. The seal only means the loss, or
 > the win, is the machine's and not mine.**"
 
+## On sampling and reproducibility
+
+The pinned snapshot uses its native sampling. The API does not accept a
+temperature, top_p, or top_k parameter on this model, so the agent runs at
+the model's own sampling. It is not bit-reproducible. This is the honest
+position the technology permits, unchanged in substance from earlier.
+
 ## Not advice (ASIC posture)
 
 This is an AI-education project documenting an autonomous experiment. It is

@@ -50,15 +50,31 @@ def check(name: str):
 
 
 # ---- C-MODEL -------------------------------------------------------------
+# Amendment 2026-05-19 (reason class 'broker or API change' per WEEKLY-POLICY):
+# Anthropic deprecated temperature/top_p/top_k for claude-opus-4-7. MODEL.txt
+# now records what is used (native sampling), not what was intended. The
+# C-MODEL target is the byte-exact two-line content Maran approved; the
+# assertion is corrected, not weakened.
+EXPECTED_MODEL_LINES = [
+    "claude-opus-4-7",
+    "sampling: native (the Anthropic API does not accept temperature, top_p, "
+    "or top_k for this snapshot; adaptive thinking + the model's native "
+    "sampling)",
+]
+
+
 @check("C-MODEL")
 def _c_model():
     lines = [l for l in (SEALED / "MODEL.txt").read_text("utf-8").splitlines()
              if l.strip()]
-    if lines != ["claude-opus-4-7", "0.7"]:
-        return False, f"MODEL.txt lines {lines!r}"
-    if "1.0" in (SEALED / "MODEL.txt").read_text("utf-8"):
-        return False, "MODEL.txt contains 1.0"
-    return True, "claude-opus-4-7 / 0.7, no 1.0"
+    if lines != EXPECTED_MODEL_LINES:
+        return False, f"MODEL.txt lines do not byte-match expected ({lines!r})"
+    # Banned residues that would smuggle the stale operator-temperature framing
+    # back in: no '0.7', no '1.0' as a temperature value.
+    raw = (SEALED / "MODEL.txt").read_text("utf-8")
+    if "0.7" in raw or "1.0" in raw:
+        return False, "MODEL.txt contains a stale temperature residue"
+    return True, "claude-opus-4-7 / native sampling, byte-exact"
 
 
 # ---- C-COUNCIL-PROMPT (replaces C-PROMPT): byte-identity ----------------

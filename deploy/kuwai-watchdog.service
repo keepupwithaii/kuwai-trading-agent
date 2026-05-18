@@ -11,6 +11,6 @@ Type=oneshot
 User=kuwai
 Environment=PYTHONDONTWRITEBYTECODE=1
 EnvironmentFile=/etc/kuwai/agent.env
-ExecStart=/usr/bin/python3 -B /opt/kuwai/watchdog.py
+ExecStart=/usr/bin/python3 -B /opt/kuwai/deploy/watchdog.py
 TimeoutStartSec=120
 NoNewPrivileges=true
