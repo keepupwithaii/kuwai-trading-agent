@@ -56,9 +56,16 @@ def main() -> int:
                          "captured floor baseline\n")
         return 3
 
-    # Build real deps (broker/clock/decider/synth) from env; omitted here as
-    # deploy-side glue. The sealed loop is the authority.
-    deps = build_real_deps(mode)  # noqa: F821  (provided by the deploy bundle)
+    # Build real deps (broker/clock/decider/synth) from env. The sealed loop
+    # is the authority; deploy-side glue is in clients.py.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import clients  # deploy-side, NOT sealed
+    deps = {
+        "broker": clients.AlpacaBroker(),
+        "clock": clients.Clock(),
+        "decider": clients.AnthropicDecider(),
+        "synth": clients.AnthropicSynth(),
+    }
     res = agent_loop.run_wake(deps, Path("/var/lib/kuwai/ledger.log"),
                               e0=e0, live_block_n=(mode == "live"))
     print(res.get("state"))

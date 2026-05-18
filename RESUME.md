@@ -81,28 +81,53 @@ in order. A general "go" is not a seal trigger.
 - [ ] deploy to VPS + ONE compressed PAPER cycle, observe green
 - [ ] STOP, report, HOLD at pause point (b) for Maran's per-step triggers
 
-## NEXT ACTION
+## NEXT ACTION — Plug-in plan
 
-code/ harness is COMPLETE. Now, in order:
+The build + conformance is done locally. Now deploy. In order:
+
+A. **Local PAPER sanity cycle** (this machine, ONE wake, autonomous, no real
+   fill possible on the paper key). Validates the wiring against real Alpaca
+   PAPER + real Anthropic API before VPS time/spend. Secrets extracted from
+   /Users/maraneweda/config/{Alpaca/token (paper).rtf, Anthropic/API.rtf,
+   Apify/token} into ~/.config/kuwai-agent.env (chmod 600, gitignored,
+   OUTSIDE the build repo). Never echoed to chat or committed.
+B. **Hostinger VPS**: if Maran has an existing VPS, use its host/user;
+   otherwise provision Ubuntu 24.04 LTS via the Hostinger API token
+   (/Users/maraneweda/config/Hostinger/tokens.rtf). Generate an SSH key pair
+   ~/.ssh/kuwai_ed25519 (no chat leak); upload the public key at provision;
+   harden per RUNBOOK (UTC, password login disabled, ufw to SSH/Alpaca/
+   Anthropic only, unattended-upgrades).
+C. **Deploy**: scp the sealed commitment-v2/ tree + deploy/ artefacts to
+   /opt/kuwai/. Drop /etc/kuwai/agent.env (root-only chmod 600) with the
+   secrets and the synthetic E0 placeholder for the paper cycle. systemctl
+   enable + start kuwai-agent.timer + kuwai-watchdog.timer.
+D. **One PAPER cycle**: trigger a single wake, observe green end-to-end
+   (reconcile -> perceive -> decide -> linter -> council if any -> gate ->
+   hash-log -> heartbeat -> standout JSON). On green, STOP.
+E. **HOLD at pause point (b)** for Maran's per-step trigger sequence (V1-V4
+   verbal + dated attestation -> eyes-open re-confirm -> seal -> publish-
+   before-first-trade -> go-live).
+
+Superseded prior per-module note kept for history below:
 1. `commitment-v2/MANIFEST.txt` (per-file SHA-256 of every sealed file +
    pinned code git commit SHA; BUILD ARTEFACT ONLY; the real pre-registration
    hash is the Maran-gated seal step, not this).
 2. repo-root `README.md` (94 C2.6 verbatim seal claim + not-advice/ASIC line +
    verify-hash-and-OTS steps + the SOL rights line; NOT inside commitment-v2/;
    no LICENSE file).
-3. `conformance/gate.py` binary suite: 139 §2 plumbing + C-MODEL,
-   C-COUNCIL-PROMPT (byte-identity to freshly re-derived 151 §4 + January 2026
-   fill, via build_tools/council_prompt_extract), C-COUNCIL-SEAL,
-   C-COUNCIL-SCHEMA-GUARD (+ R-1 Fixture A substantive-reject-zero-retry & B
-   schema-garble-exactly-one-retry), C-COUNCIL-HALT-SAFE (retry-trigger-scope),
-   C-COUNCIL-A5, C-STANDOUT-ISOLATION, C-CONCESSION, C-MANIFEST, C-SECRETS,
-   C-LOCKFILE, C-RELATIONSHIP. Model STUBBED, no order, no network, no seal
-   artefact. Binary all-pass; on fail fix the BUILD, never weaken an assertion.
-4. `deploy/` systemd service+timer, watchdog service+timer, external dead-man
-   hook, RUNBOOK (27 §3-§6) -- artefacts only, not executed here.
-5. run the binary conformance gate to green.
-6. deploy to VPS + ONE compressed PAPER cycle on the PAPER key, observe green.
-7. STOP, report, HOLD at pause point (b).
+3. [x] `conformance/gate.py` binary suite GREEN (commit faf3325). All 13 asserts
+   pass: C-MODEL, C-COUNCIL-PROMPT (byte-identity re-derive), C-MANIFEST
+   (exact membership 37), C-SECRETS (clean, report outside sealed tree),
+   C-LOCKFILE, C-RELATIONSHIP (V1-resolved), C-CONCESSION, C-COUNCIL-SEAL,
+   C-COUNCIL-SCHEMA-GUARD (R-1 fixtures A=halt/0 + B=halt/1), C-COUNCIL-
+   HALT-SAFE, C-COUNCIL-A5, C-STANDOUT-ISOLATION, PLUMBING-DECISION-BLIND.
+   Two defects fixed in the BUILD (no assertion weakened): secret scanner
+   hex-digest accuracy; bytecode caches blocked via sys.dont_write_bytecode.
+4. [x] `deploy/` artefacts committed (b4c1411): kuwai-agent.service, .timer,
+   kuwai-watchdog.service, .timer, RUNBOOK.md, thin run_agent.py entrypoint.
+   NOT inside commitment-v2/. Secrets ONLY from /etc/kuwai/agent.env chmod 600.
+5. [ ] VPS deploy + ONE compressed PAPER cycle: NEXT (see "Plug-in plan").
+6. [ ] STOP, report, HOLD at pause point (b).
 
 Superseded prior per-module note kept for history:
 1. `manifest_io.py` (read MODEL.txt/UNIVERSE/SCHEDULE etc deterministically)
