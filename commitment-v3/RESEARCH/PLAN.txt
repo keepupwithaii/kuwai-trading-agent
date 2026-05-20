@@ -1,0 +1,53 @@
+# RESEARCH/PLAN.txt — the static finite acyclic deterministic fan-out graph (sealed)
+#
+# "Assemble base payload -> bounded deterministic research loop -> ONE model
+# decision call." This is a STATIC finite acyclic graph of deterministic
+# fetch+derive nodes. No model-authored retrieval. No model-authored memory.
+# Exactly one model call per wake over the assembled payload.
+#
+# Sealed node bound and wall-clock budget; on budget hit a node emits a
+# MISSING|STALE sentinel (never a silent fill). 131 §2.3, 102 R2.1, 127/128.
+
+node_bound        = 64          # max deterministic nodes evaluated per wake
+wall_clock_budget = 90s         # whole research loop; on hit -> sentinels
+order             = acyclic; each node depends only on already-evaluated nodes
+
+## Nodes (deterministic fetch or derive only)
+
+N01 own_account        : reconcile broker truth (equity/cash/settled/positions/PDT)
+N02 market_bars        : prior-session daily + recent intraday + last trade, universe
+N03 news_catalyst      : Alpaca/Benzinga news + SEC EDGAR primary + corporate actions
+N04 macro_regime       : derived transform (REGIME_RULE.txt)
+N05 sector_cross       : derived transform (frozen sector map)
+N06 index_constituent  : frozen constituent map
+N07 volatility         : realised-only fallback named
+N08 liquidity          : derived transform
+N09 catalyst_calendar  : sealed dated public scheduled events only
+N10 own_history        : READ-ONLY deterministic cross-wake own-log assembly
+N11 block_n_social     : sealed named-channel scrape (SCRAPE_CHANNELS.txt);
+                          live scrape only at real runtime, NEVER in the paper
+                          cycle or the conformance gate
+N12 corroboration      : the sealed primary-record corroboration node, below
+
+## N12 corroboration node (sealed predicate, the §1.1 trust-root discipline)
+
+- Trust-root: a Block-N social claim's annotation leaves single_source_social
+  ONLY via a same-symbol, same-sealed-window datum from SEC EDGAR (Block E),
+  corporate actions (Block C), or a Block-B price move NOT plausibly caused by
+  the post itself. Agreement among ANY number of Block-N social entities is
+  deterministically NOT corroboration -> multi_social_uncorroborated (read no
+  stronger than single_source_social, treated as a pump signal not a truth
+  signal).
+- Post-caused-price rule: a same-wake price move concurrent with the assessed
+  post is annotated price_move_concurrent_not_independent, never
+  price_confirmed.
+- social_cross_pump_pattern = true when the same claim (mechanical match: same
+  symbol, same sealed window, social-only) appears across >=2 sealed Block-N
+  entities with no authenticated corroborator. Non-blocking, visible in the
+  sealed log, externally countable. Mechanical match only, never topic-aware,
+  never operator-tunable.
+
+The match rule is mechanical. The corroboration predicate is a sealed signed
+predicate, changeable only via the closed outcome-blind weekly re-seal, the
+same integrity class as the sealed-signed threshold. It blocks no order; the
+feasibility gate remains the sole order blocker.

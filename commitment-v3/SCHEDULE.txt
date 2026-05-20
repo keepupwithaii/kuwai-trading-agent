@@ -1,0 +1,30 @@
+# SCHEDULE.txt — sealed wake cadence
+#
+# The clock is not a decision. Sealed so a hidden re-cadence is impossible.
+# Source: 102 R2.1 / 131 §2.9 / 67 2026-05-18 (crypto struck entirely).
+#
+# Equities/ETF leg ONLY. There is NO crypto leg. There is NO 24/7 timer.
+# The crypto timer unit is absent-and-sealed (crypto excluded everywhere).
+
+leg = equities_etf_only
+crypto_leg = absent_sealed            # no 24/7 wake, no crypto universe
+
+# Regular-session cadence: a wake every 30 minutes, window-guarded to US
+# regular trading hours, plus one fixed pre-close wake. ~13 wakes on a full
+# trading day. The harness derives market open/close/half-days from the Alpaca
+# clock/calendar API at runtime; it never uses a hardcoded offset (the AU/US
+# DST mismatch is removed by the calendar API, 27 §2.13).
+
+wake_interval_minutes = 30
+rth_window_guard_et = 09:35-15:55      # equities-leg orders only inside this
+pre_close_wake = 1                     # one fixed pre-close wake
+after_hours_equities_wake = none
+overnight_equities_wake = none
+
+# systemd OnCalendar is expressed in UTC with Persistent=true; a missed fire
+# during VPS downtime runs once on recovery, then reconciles broker truth
+# first. The runtime clock.is_open gate is the second layer of the two-layer
+# defence. No fire ever lands outside the RTH guard for an equities order.
+
+timer_timezone = UTC
+persistent = true

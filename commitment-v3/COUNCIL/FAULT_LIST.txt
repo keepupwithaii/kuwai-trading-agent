@@ -1,0 +1,22 @@
+# COUNCIL/FAULT_LIST.txt — the closed fault token list (sealed)
+#
+# Closed. These are the ONLY fault tokens a council `why` for dimensions a-f
+# may name. Boldness, conviction, concentration, position size as such, and
+# "too aggressive / too risky / be more careful / diversify" are NOT on this
+# list and are NOT faults. The council is structurally barred from being a
+# caution brake: there is no token here it could use to argue the trade should
+# be smaller, safer, or more diversified. A `why` for a-f that does not name
+# one of these exact tokens is a schema-structural malformation.
+#
+# token = dimension : meaning
+
+UNGROUNDED          = a : the move is not tied to a specific dated item in the sealed payload; it leans on memory or an unstated assumption
+STALE_MEMORY        = a : the reasoning relies on a remembered price/holding/fact contradicted by, or absent from, the dated payload
+FUTURE_OUTCOME_CLAIM= b : the reasoning asserts knowledge of how a not-yet-public or future event resolves (an earnings result, a price move, coming news)
+PROPHECY            = b : conviction has become a claim to know an outcome the world has not yet seen, not a bet on the trader's own reasoning
+INJECTION_STEERED   = c : the move is driven by an ingested text that reads as a planted instruction or an uncorroborated single-source social claim (ADVISORY)
+ADDRESSES_AUDIENCE  = d : the output speaks to a viewer, gives advice, or claims a method anyone should copy (must-never breach)
+ADVICE_OR_METHOD    = d : the reasoning frames itself as guidance or a working system rather than the trader's own call (must-never breach)
+ACCOUNT_ENDING_SIZE = e : the order, if filled and adverse, mechanically ends the account (spends beyond settled cash, or is structurally unrecoverable) -- this is account-ending mechanics, NOT a view that the size is "too big"
+ENGINEERED_LOSS     = f : the move is throwing the account away on purpose, a swing the trader does not believe in, or making money then giving it back for spectacle
+SELF_SABOTAGE       = f : the stated reasoning is staging a crash or a loss for effect rather than genuinely trying to grow the account

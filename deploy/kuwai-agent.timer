@@ -11,7 +11,21 @@ Description=KUWAI commitment-v2 wake schedule (UTC, Persistent)
 [Timer]
 # 13:30-20:00 UTC covers 09:30-16:00 ET (DST-shift tolerant; the run derives
 # the precise open/close/half-day from the Alpaca calendar API at runtime).
-OnCalendar=Mon..Fri 13:35,14:05,14:35,15:05,15:35,16:05,16:35,17:05,17:35,18:05,18:35,19:05,19:50 UTC
+# One OnCalendar= per fire (systemd accumulates repeated lines; a combined
+# comma time-list is not valid calendar syntax).
+OnCalendar=Mon..Fri 13:35 UTC
+OnCalendar=Mon..Fri 14:05 UTC
+OnCalendar=Mon..Fri 14:35 UTC
+OnCalendar=Mon..Fri 15:05 UTC
+OnCalendar=Mon..Fri 15:35 UTC
+OnCalendar=Mon..Fri 16:05 UTC
+OnCalendar=Mon..Fri 16:35 UTC
+OnCalendar=Mon..Fri 17:05 UTC
+OnCalendar=Mon..Fri 17:35 UTC
+OnCalendar=Mon..Fri 18:05 UTC
+OnCalendar=Mon..Fri 18:35 UTC
+OnCalendar=Mon..Fri 19:05 UTC
+OnCalendar=Mon..Fri 19:50 UTC
 Persistent=true
 AccuracySec=30s
 

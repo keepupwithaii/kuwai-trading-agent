@@ -1,0 +1,19 @@
+# LOCKFILE.txt - sealed dependency lock (S-SUPPLY-CHAIN / C-LOCKFILE, 139 §3 item 7)
+#
+# The harness is Python 3 standard library ONLY. There are zero third-party
+# (pip / PyPI) dependencies, so the entire transitive closure is empty and
+# there is nothing to pin a content hash for. Nothing pip-installed can rot
+# over a 26-week unattended run (27 ops discipline; the v0 stdlib-only choice
+# carried forward).
+
+third_party_dependencies = NONE
+transitive_closure       = EMPTY
+python_runtime           = CPython 3, pinned at the VPS image build (Ubuntu
+                           24.04 LTS system python3); recorded in the deploy
+                           runbook and reproducible-build note.
+stdlib_modules_used      = hashlib, json, re, subprocess, sys, pathlib,
+                           datetime, dataclasses, urllib (runtime HTTP only)
+
+# Reproducible-build procedure: see RESEARCH/RECONSTRUCTION.md "Reproducible
+# build". A sceptic re-creates the runtime from this sealed tree + a pinned
+# CPython 3 with no package installation step.
