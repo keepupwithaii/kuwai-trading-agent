@@ -1,0 +1,38 @@
+# RESEARCH/TRANSFORMS.txt — sealed deterministic transform definitions (sealed)
+#
+# Sector / volatility / liquidity / calendar derived blocks. Each is a
+# deterministic, reproducible transform over R1 inputs only, encoding NO view,
+# NO direction, NO preference. A sceptic re-derives each bit-for-bit. Realised
+# data only; no implied/option/paid-SIP inputs.
+
+sector_cross (Block G):
+  input  : prior-session daily bars for every UNIVERSE.txt symbol + frozen
+           symbol->GICS-sector map
+  output : per-sector simple mean of symbol 1-day and 5-day returns
+  notes  : descriptive cross-section only; names no preferred sector
+
+volatility (Block J):
+  input  : prior-session daily bars per symbol, sealed window
+  output : realised_vol_20d per symbol (annualised stdev of daily log returns)
+  notes  : realised-only fallback explicitly named; no implied vol ever
+
+liquidity (Block K):
+  input  : recent intraday bars per symbol
+  output : median traded notional per bar over the sealed window
+  notes  : descriptive only; not a filter, not a cap
+
+calendar (Block L):
+  input  : sealed dated public scheduled events (earnings dates, splits,
+           index rebalances) for UNIVERSE.txt symbols
+  output : the dated events themselves, each stamped; no commentary, no
+           "this is important", no expected direction
+
+index_constituent (Block H):
+  input  : frozen index->constituent map
+  output : membership flags only
+
+macro_regime (Block F): see REGIME_RULE.txt
+
+# Any input MISSING/STALE -> the derived block is UNAVAILABLE/STALE, never
+# estimated. Frozen maps (sector, constituent, symbol->CIK) are sealed and
+# dated; updating one is a public commitment-vN+1 under the closed weekly list.

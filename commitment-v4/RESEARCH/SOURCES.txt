@@ -1,0 +1,19 @@
+# RESEARCH/SOURCES.txt — the sealed, narrow, fixed source set (sealed)
+#
+# A deliberately NARROW sealed-API set. No open "search the internet". No
+# source-selection or curation surface at runtime. Adding/removing a source is
+# a public commitment-vN+1 under the closed weekly reason list.
+
+S1 alpaca_md_iex     : Alpaca market data, free IEX, bars + last trade only.
+                        Never bid/ask spread, never odd-lot BBO.
+S2 alpaca_news       : Alpaca news endpoint, universe symbols only.
+S3 benzinga          : Benzinga news via the sealed integration, universe only.
+S4 sec_edgar         : SEC EDGAR primary filings + XBRL primary facts. The
+                        trust-root for corroboration.
+S5 corporate_actions : Alpaca corporate-actions API (splits/dividends).
+S6 block_n_social    : the sealed named-channel scrape, governed wholly by
+                        SCRAPE_CHANNELS.txt. Closed literal named list,
+                        parameter-free, pinned Actors. NEVER an open query.
+
+No other source exists. Social sentiment beyond the closed Block-N named list
+is excluded. The agent cannot add a source; it has no tool to.

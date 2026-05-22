@@ -1,0 +1,2 @@
+claude-opus-4-7
+sampling: native (the Anthropic API does not accept temperature, top_p, or top_k for this snapshot; adaptive thinking + the model's native sampling)

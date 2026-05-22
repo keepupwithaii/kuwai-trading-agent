@@ -1,0 +1,54 @@
+# RESEARCH/SCRAPE_CHANNELS.txt — the sealed Block-N channel object (sealed)
+#
+# Closed, parameter-free, pinned. NO searchTerms / query / keyword field, ever.
+# Live scrape runs ONLY at real runtime; it NEVER runs in the conformance gate
+# or the compressed paper cycle (Block N is sealed-config + schema only there).
+#
+# The Tier-1 reconstruction gate: this whole file is SHA-256/OTS sealed; a
+# sceptic checks the curation surface against it forever (RECONSTRUCTION.md).
+
+## Sealed cadence / caps (sealed signed scalars, closed-weekly-only changeable)
+
+block_n_enabled        = present_and_sealed
+recency_window         = 24h            # mirrors RECENCY.txt
+per_entity_N_max       = 50             # per sealed entity, NOT global
+per_wake_token_ceiling = sealed_budget  # bounds Block N as a whole per wake
+truncation             = recency_only_visible (truncated + dropped_count in schema)
+topic_aware            = forbidden
+scrape_in_paper_cycle  = never
+scrape_in_conformance  = never
+
+## Pinned Apify Actors (Actor id + pinned build hash)
+
+# REQUIRED PRE-SEAL BUILD-CONFIRM (67: "the two Apify build-confirms",
+# execution-terminal-owned, mechanical). The exact Actor ids and the exact
+# pinned build hashes are filled at the build-confirm step before seal and
+# verified by C-* / RECONSTRUCTION Tier-1. NOT invented here.
+actor_x_named      = apidojo/tweet-scraper@0.0.1380
+actor_reddit_named = trudax/reddit-scraper-lite@4.22.4
+
+## The CLOSED literal named-entity list (sealed)
+
+# Maran-ratified 2026-05-19 per 126 §5.3 (operator-owned one-time
+# conscious selection on diffable sealed content). Criterion: neutral
+# and general-market-relevant; explicitly NOT GTA / Take-Two / Rockstar
+# / gaming-targeted (thesis-targeted membership is laundered steering
+# and breaks the seal claim). Folds into the existing eighth concession
+# clause; no new on-camera concession beat.
+
+x_account:   @SECGov
+x_account:   @federalreserve
+x_account:   @USTreasury
+x_account:   @WhiteHouse
+x_account:   @CNBC
+x_account:   @Reuters
+x_account:   @business
+reddit_sub:  r/investing
+reddit_sub:  r/stocks
+reddit_sub:  r/StockMarket
+reddit_sub:  r/economy
+
+# If counsel's scraping-ToS ruling (V3) removes Block N, the clean reversion
+# (131 §4 / 128 §7): strike Block N, the payload reverts to the ~13-block
+# Wave-11 set, R4 disappears, reconstruction is strictly more checkable, the
+# seal-readiness verdict holds unchanged. The build holds that reversion ready.

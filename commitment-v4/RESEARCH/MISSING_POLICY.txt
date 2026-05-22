@@ -1,0 +1,16 @@
+# RESEARCH/MISSING_POLICY.txt — sealed missing/stale handling
+#
+# Missing or out-of-date data is stated plainly, never filled.
+
+- A node that cannot fetch within budget emits a MISSING sentinel.
+- A datum past its RECENCY.txt window is marked STALE.
+- A source error/empty/half-result -> the block goes UNAVAILABLE or STALE;
+  the run continues; nothing is silently filled (Block-N non-load-bearing
+  continuity invariant, 130 §5; scraper-death parallels the crash-injection
+  test).
+- The payload presents MISSING/STALE/UNAVAILABLE explicitly to the agent. The
+  sealed prompt instructs the agent to reason as a mind that does not have it:
+  decide without it, or judge it cannot responsibly act and hold. It never
+  estimates the gap from memory.
+- The harness never substitutes a default, a prior value, or a model guess for
+  a missing datum. Silent fill is SCHEMA-ASSEMBLY-FAULT (a closed bug class).
