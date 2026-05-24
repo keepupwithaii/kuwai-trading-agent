@@ -1,0 +1,17 @@
+# RESEARCH/RECENCY.txt — sealed freshness windows
+#
+# A datum older than its window is marked STALE (never silently used). Bounds
+# are sealed signed constants, changeable only via the closed weekly re-seal.
+
+market_bars_daily      = prior completed US session
+market_bars_intraday   = <= 35 min old at assembly (else STALE)
+last_trade             = <= 35 min old (else STALE)
+news_catalyst          = <= 36 h lookback window; items dated >36 h dropped
+sec_edgar              = most recent primary filing, no recency cap (primary
+                         record is the trust-root regardless of age)
+corporate_actions      = current declared/effective only
+block_n_social         = <= 24 h lookback; recency-only visible truncation
+                         with truncated/dropped_count in-schema, never
+                         topic-aware
+sanity_bound           = reject a price move > 25% vs last good print with no
+                         corroborating bar (IEX print-artefact filter)

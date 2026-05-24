@@ -1,0 +1,68 @@
+# MANIFEST.txt - per-file SHA-256 of the sealed tree (BUILD ARTEFACT).
+# NOT the pre-registration hash; the real seal hash is the
+# Maran-gated seal step (pause point (b)). MANIFEST.txt excludes
+# itself. Paths are POSIX-relative to commitment-v5/.
+#
+# v5 cut 2026-05-23 under closed-reason "defined bug class"
+# (WEEKLY-POLICY). THREE sealed files changed vs v4:
+#   1. COUNCIL/SYNTHESISER_PROMPT.md: new "Required JSON shape:
+#      dimensions MUST be nested" section + literal JSON example.
+#      Fixes the sealed-prompt vs sealed-parser shape mismatch
+#      surfaced on the first natural v4 live wake (2026-05-22T14:14Z).
+#   2. code/grounding_linter.py: citation match changed from
+#      exact-string equality to prefix-match against block-level
+#      keys. Fixes the sealed-linter format mismatch surfaced on the
+#      pre-seal v5 smoke #1 (2026-05-23T06:10Z); item-level model
+#      citations (e.g. "A_market_bars AMZN 2026-05-22 close 266.27")
+#      now match the block key "A_market_bars". Output schema
+#      byte-identical -- council.py needs no change.
+#   3. RESEARCH/SCRAPE_CHANNELS.txt: actor_x_named unpinned from
+#      "@0.0.1380" to bare "apidojo/tweet-scraper" (actor identity
+#      sealed, build hash unsealed). Fixes the architectural pattern
+#      bug surfaced by Apify retiring two consecutive sealed builds
+#      within ~24-48h of each prior seal. Deploy-side adapter
+#      resolves latest-SUCCEEDED build at runtime and logs it in the
+#      per-wake audit dict. Channel list + Reddit pin unchanged.
+# All other 34 sealed files BYTE-IDENTICAL to v4 (SYSTEM_PROMPT.md,
+# MODEL.txt, every other code/* module, SCHEMA.md, every other
+# COUNCIL/, every other RESEARCH/, corpus/). v4 retained as
+# historical record; commitment-v5 is a successor seal, not a
+# replacement.
+pinned_code_git_commit = v5-cut-pending-architect-approval
+
+e55cc5246d85d1188c21a37e2d9a77917583d012bdbb61809eeb1886a577b608  COUNCIL/CON_PROMPT.md
+f8dc0bcd6821155a99a013f5aa2282914e246b7a512179cb69bbf18f49f30bcd  COUNCIL/FAULT_LIST.txt
+f4f9a5f9f631daa267b2dc8ea1256be663ccceb0b15180067b9a170ea849cf99  COUNCIL/PRO_PROMPT.md
+5282b1977813d5f65edbd03fde57620ba4595b4ac86a32ebadfaf0015fee3125  COUNCIL/SCHEMA.md
+729d0dd157e5ff497c2c852269689ff2cd1cb613054265ae3a9f931ef1d647f4  COUNCIL/SYNTHESISER_PROMPT.md
+d4a0fd2b8c05e97b5371e273afe1ed379f93da30d803fa89e5a9e1dfc4de1694  LOCKFILE.txt
+aedbecbfeead803939082fa713bdc1b4d980e59d510fd03cacaff53614954da4  MODEL.txt
+672c6ec443b6d2a79629219d3afca97ce31c5ea94374a80b2ae84ee6f2f4df4d  PERCEPTION_SCHEMA.md
+9f5f1414241aecdd674fa00980dfd2b023249603c0de9149b2b72d0126a51462  RELATIONSHIP.md
+07774245b0822007bee27957465b8a69f5c1b096745220ade5cd17471e0ef224  RESEARCH/FUNDING.txt
+ce8256bfa0e15293a7204a09446a44615393c71f6bdb79ad579c70103616c461  RESEARCH/MISSING_POLICY.txt
+5005e93241e6931a20fb365a6991fc64efcdf90c3ac6d4db6480ebf9a7b89fca  RESEARCH/PLAN.txt
+fc06ca7f2e30e2534b0e3aa7d9b38752eb87289815c1ea1fd7a9a379c3276196  RESEARCH/QUERY_TEMPLATE.txt
+d386f0f3b20bc21b6e3da523f88758e6afa96e9792f5f6ce2d88126ae692041b  RESEARCH/RECENCY.txt
+f3b0aa2f3b11f433b3d42a37bfcfac2e57fa2a478e78069c7eb2d7e49953755e  RESEARCH/RECONSTRUCTION.md
+a48ff32f7864b99049d5b376b65df1d70435df797071dda155dbf9e6a951dbb7  RESEARCH/REGIME_RULE.txt
+f61dbe1e0b6ea8071c4c592fc9700aa5922704607c74ff1bdd00677d00cc81b7  RESEARCH/SCRAPE_CHANNELS.txt
+7846064556a4ce4ae4ff9a15039d811d1dc618aaf66f5259127872498340160f  RESEARCH/SOURCES.txt
+4839e7f7e28cc3872fcf2b021a9f20c751337813d2b9e3dddedca4f84b8d28ab  RESEARCH/TRANSFORMS.txt
+f3641d6300c808aaecc88c50170ddaf374c0dd28ab2b752b1c83f1d6cbf5fa40  SCHEDULE.txt
+be20def7c9e3bb307a1a7c72ea6dd16ca578523e3c9f6a9787d1b94fed4474bb  SYSTEM_PROMPT.md
+81951cbeea4f0bc2305fc0349a0b0db4e06ba78a03206078f746f03f2898eb46  TOOLS.md
+d7a9018660980c4db65cb56ed888d2d2d38ca2575c93d96b0ef76131fefbec08  UNIVERSE.txt
+8be04a12e094c3ebba49bca5b67e52e9d909b30e6d8a35a72de38688624ada75  WEEKLY-POLICY.md
+82760284c2ca65d307ebcf98edd1066987edc67101722cf81bb695d4247c6d10  code/agent_loop.py
+4e1f940d8e3663ffcb2a63b2319c3c46bb32bdf93e811d64cb1a7a8f03c9af27  code/amendment_loader.py
+d8b43a7d081b3ccec4fdeae22f96c1c8e002fd83aaac871bfef2a9c667ef1a6e  code/council.py
+1edf0594e6f5deeab32c4b3257fb3c1441b80b47160d1de148f51b6e766a4f78  code/feasibility_gate.py
+bc90fb2b33ed0dc1790080834f8752cefba2c76e4f11e133756fbc52cb664f59  code/floor.py
+c079043a64958865de2254a932ce6d6d896ed26d427551311cdfdef8b394b061  code/grounding_linter.py
+ace5f0f41dce5612816e4de09c7270658d2eef916f777e5179208fbb99a3ed05  code/hashlog.py
+b588efb1b0d1078c195b54da9b921ab47f8b995dcdc1fd5cc54ea94ae54853ca  code/manifest_io.py
+055f0c1e170cbc41c666eed128a528ab3d4b02ffea91efad914d84f72f49bc5f  code/perception.py
+05ef229fb12dd3c9ec27c605b522c0d7196acd901755bac57a94f58ea4aac06e  code/standout.py
+313cd5bb8609cdcd9be02637dfbb97570504187b34ebe3d418974c886ad58b82  corpus/NO-EDGE.md
+c3215de181ffdaa0474c1cd238818ada78115fe13b55de29091e1b48d3fad129  corpus/README.md
