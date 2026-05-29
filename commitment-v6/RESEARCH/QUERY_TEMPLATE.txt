@@ -1,0 +1,20 @@
+# RESEARCH/QUERY_TEMPLATE.txt — the parameter-free input template (sealed)
+#
+# Every source and every pinned Actor is called with a FIXED, parameter-free
+# input template. There is NO searchTerms field and NO query field, and none
+# is ever populated, anywhere, ever. The agent cannot influence what is
+# fetched; the harness fetches the sealed fixed set deterministically.
+
+alpaca_md_iex   : { symbols: <UNIVERSE.txt verbatim>, feed: iex,
+                    granularity: { daily: prior_session, intraday: recent } }
+alpaca_news     : { symbols: <UNIVERSE.txt verbatim>, recency: RECENCY.txt }
+benzinga        : { symbols: <UNIVERSE.txt verbatim>, recency: RECENCY.txt }
+sec_edgar       : { ciks: <symbol->CIK frozen map>, forms: primary_only }
+corporate_actions: { symbols: <UNIVERSE.txt verbatim> }
+block_n_social  : { channels: <SCRAPE_CHANNELS.txt closed named list verbatim>,
+                    recency: RECENCY.txt, per_entity_cap: <N_max>,
+                    NO searchTerms, NO query, NO keyword field }
+
+# Forbidden in every template, asserted at build: the literal field names
+# `searchTerms`, `query`, `q`, `keywords`, `search`. Their presence anywhere in
+# a populated template is a build defect, never an exception.
